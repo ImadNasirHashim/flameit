@@ -2,6 +2,8 @@ import 'dart:async';
 import 'package:flameit/core/constants/app_links.dart';
 import 'package:flameit/ui/screens/custom_loader.dart';
 import 'package:flameit/ui/screens/home_screen/home_provider.dart';
+import 'package:flameit/ui/screens/introscreens/eachpage.dart';
+import 'package:flameit/ui/screens/introscreens/indicator.dart';
 import 'package:flameit/ui/screens/side_bar_screen.dart';
 import 'package:flameit/ui/screens/webview_screen/web_view_provider.dart';
 import 'package:flutter/material.dart';
@@ -28,7 +30,7 @@ class WebViewScreen extends StatelessWidget {
           body: Stack(
             children: [
               WebView(
-                initialUrl: homePath,
+                initialUrl: url,
 
                 javascriptMode: JavascriptMode.unrestricted,
                 // onWebViewCreated: (WebViewController webViewController) {
@@ -62,3 +64,5 @@ class WebViewScreen extends StatelessWidget {
     );
   }
 }
+
+

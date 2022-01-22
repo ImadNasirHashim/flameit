@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:provider/provider.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class HomeScreen extends StatelessWidget {
   // const HomeScreen({ Key? key }) : super(key: key);
@@ -17,14 +18,21 @@ class HomeScreen extends StatelessWidget {
   late WebViewController _webViewController;
   final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
 
+
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => HomeProvider(),
       child: Consumer<HomeProvider>(
         builder: (context, model, child) => Scaffold(
+
           key: _scaffoldKey,
-          drawer: SideBarScreen(),
+          drawer: Theme(
+              data: Theme.of(context).copyWith(
+                canvasColor: Colors.white, //This will change the drawer background to blue.
+                //other styles
+              ),
+              child: SideBarScreen()),
           body: Stack(
             children: [
               WebView(
@@ -54,20 +62,60 @@ class HomeScreen extends StatelessWidget {
                   // });
                 },
               ),
+              
+
               model.isLoading == false
                   ? CustomLoader()
-                  : Padding(
-                      padding: EdgeInsets.only(top: 20),
-                      child: IconButton(
-                        onPressed: () {
-                          _scaffoldKey.currentState!.openDrawer();
-                        },
-                        icon: Icon(
-                          Icons.account_circle_rounded,
-                          color: Colors.white,
-                        ),
+                  : Container(
+                        width: double.infinity,
+                        height: 70.h,
+                        child: InkWell(
+                          onTap: ()
+                          {
+
+                          },
+                          child:  Image.asset("assets/menubg.png",
+                            fit: BoxFit.cover,
+
+                          ),
+
+                          // Container(
+                          //   width: 50,
+                          //   child:IconButton(
+                          //     alignment: Alignment.centerLeft,
+                          //     onPressed: () {
+                          //       _scaffoldKey.currentState!.openDrawer();
+                          //     },
+                          //     icon: Icon(
+                          //       Icons.menu,
+                          //       color: Colors.white,
+                          //     ),
+                          //   ),
+                          // ),
+                        )
+
+
+
+
                       ),
-                    )
+
+
+              Container(
+                margin: EdgeInsets.only(top: 30,left: 20),
+                width: 50,
+                child:IconButton(
+                  alignment: Alignment.centerLeft,
+                  onPressed: () {
+                    _scaffoldKey.currentState!.openDrawer();
+                  },
+                  icon: Icon(
+                    Icons.menu,
+                    color: Colors.white,
+                  ),
+                ),
+              )
+              
+              
             ],
           ),
         ),
